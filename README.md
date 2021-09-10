@@ -27,4 +27,5 @@ python3 rotV.py
 ```
 ### Usándolo 🔩
 _Para usar esta herramienta, simplemente usa una llave y la oración, comunmente es recomendable usar la llave 13_
-![imagen](https://user-images.githubusercontent.com/62645524/132882253-b46b8d13-f14a-4c6b-88ea-ccb85e59d300.png)
+![imagen](https://user-images.githubusercontent.com/62645524/132888968-f2655059-53e8-495c-b30c-d21d09b07d60.png)
+
