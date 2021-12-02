@@ -1,4 +1,4 @@
-# 2.1
+# 2.2
 # Importando modulos
 import os, moduls, subprocess, sys, time
 
