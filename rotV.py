@@ -1,4 +1,4 @@
-# 2.2
+# 2.3
 # Importando modulos
 import os, moduls, subprocess, sys, time
 
@@ -65,7 +65,7 @@ def interfaz(x):
 		os.system("clear")
 		print (titulo_1)
 		print (WW+"¡Hola, vengo a decirte que hay una nueva version de este programa disponible!")
-		print (Y+"¿Deseas actualizarlo a la version {}?".format(version1))
+		print (Y+"¿Deseas actualizarlo a la version" + WW +" {}"+Y+"?".format(version1))
 		print (RR+"   1)"+WW+" Si\n  "+RR+" 2) "+WW+"No\n")
 		opcion_update = int(input(BB+"Selecciona una opcion: "+ WW))
 		if opcion_update == 1:
