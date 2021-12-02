@@ -1,5 +1,9 @@
+# 2.1
 # Importando modulos
-import os
+import os, moduls, subprocess, sys, time
+
+# Comprobando si hay internet disponible para comprobar actualizacion
+conexion = moduls.comprobacion_internet()
 
 #Colores
 GL = "\033[96;1m" # Azul agua
@@ -17,89 +21,165 @@ R = "\033[31m"    # Rojo
 C = "\033[36;1m"  # Cyan
 M = "\033[35;1m"  # Morado
 
-def funcion1(x):
-	try:
-		llave = int(input(BB+"Pon tu llave\n>>> "+WW))
-	except ValueError as e_V:
-		print (RR+"ERROR:"+WW+" Procura usar números a la proxima vez"+RR+"\nError intérprete:"+WW, e_V)
-		exit(1)
-	except KeyboardInterrupt as e_K:
-		print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
-		exit(1)
+# Definiendo carga
+listo = False
+def animacion():
+    while listo == False:
+        sys.stdout.write("\rActualizando herramienta |")
+        time.sleep(0.1)
+        sys.stdout.write("\rActualizando herramienta /")
+        time.sleep(0.1)
+        sys.stdout.write("\rActualizando herramienta -")
+        time.sleep(0.1)
+        sys.stdout.write("\rActualizando herramienta \\")
+        time.sleep(0.1)
+    sys.stdout.write("\rActualizacion terminada!")
 
-	try:
-		palabra = input(BB+"Pon el dato que quieras cifrar\n>>> "+WW)
-	except KeyboardInterrupt as e_K:
-		print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
-		exit(1)
+def sutil(s):
+        for c in s + '\n':
+                sys.stdout.write(c)
+                sys.stdout.flush()
+                time.sleep(12. / 150)
+                
+# Definiendo interfaz
+documento = open("moduls.py", "r")
+lineas = documento.readlines()[0]
+version = lineas[2:-1]
+version = str(version)
 
-	if palabra == "":
-		print (GG+"\nEl resultado es\n>>> ", end="" +WW+ "No ingresaste nada\n")
-		exit(1)
+titulo_1 = (GG+"""              _ __     __
+    _ __ ___ | |\ \   / /
+   | '__/ _ \| __\ \ / /
+   | | | (_) | |_ \ V /
+   |_|  \___/ \__| \_/     Versión {}
+""".format(version))
 
-	# Imprimiendo el resultado
-	print (GG+"\nEl resultado es\n>>> ", end="" +WW)
-
-	# Calculando algoritmo
-	conteo = 1
-	for letras1 in palabra:
-		for caracteres in especiales:
-			if letras1 == caracteres:
-				print (caracteres, end="")
-				break
-			elif letras1 == "á":
-				letras1 = "a"
-			elif letras1 == "é":
-				letras1 = "e"
-			elif letras1 == "í":
-				letras1 = "i"
-			elif letras1 == "ó":
-				letras1 = "ó"
-			elif letras1 == "ú":
-				letras1 = "u"
-			else:
-				pass
+def interfaz(x):
+	if x == 1:
+		print (titulo_1)
+		print (WW+"¡Bienvenido a esta nueva herramienta de rot y cifrados!")
+		print (WW+"A diferencia de otras herramientas, esta", RR+ "identifica espacios y caracteres especiales!")
+		print (YY+"Para comenzar, ¿Qué es lo que quieres hacer?")
+		print (RR+"   1)"+WW+" Cifrar\n  "+RR+" 2) "+WW+"Descifrar\n  "+RR+" 3) "+WW+"Salir\n")
+	elif x == 2:
+		os.system("clear")
+		print (titulo_1)
+		print (WW+"¡Hola, vengo a decirte que hay una nueva version de este programa disponible!")
+		print (Y+"¿Deseas actualizarlo a la version {}?".format(version1))
+		print (RR+"   1)"+WW+" Si\n  "+RR+" 2) "+WW+"No\n")
+		opcion_update = int(input(BB+"Selecciona una opcion: "+ WW))
+		if opcion_update == 1:
+			sutil(GG+"\n Actualizando Herramienta...")
+			# Eliminando directorio desactualizado
+			comando_eliminar = "rm -rf rotV"
+			comando_instalar = "git clone https://github.com/Z2ppbWVuZXpkZXph/rotV"
+			sutil(RR+"["+WW+"+"+RR+"]"+YY+" Cargando variables")
+			os.chdir("..")
+			sutil(RR+"["+WW+"+"+RR+"]"+YY+" Se Actualizó la herramienta correctamente")
+			sutil(GG+" Disfrutalo!")
+			os.system(comando_eliminar)
+			subprocess.run(comando_instalar, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+			os.chdir("rotV")
+			os.system("python3 rotV.py")
 		else:
-			letras = str.lower(letras1)
-			for letras_a in abecedario:	
-				if letras == letras_a:
-					letra_detectada = abecedario[conteo -1]
-					letra_detectada = abecedario[conteo -1]
-					if x == 1:
-						letra_cifrada = abecedario[conteo + llave-1]
-					elif x == 2:
-						letra_cifrada = abecedario[conteo - llave-1]
-					if letras1 == str.upper(letras):
-						letra_cifrada = str.upper(letra_cifrada)
-						print (letra_cifrada, end="")
-					else:
-						print (letra_cifrada, end="")
-					conteo = 1
-					break
-				else:
-					conteo = conteo + 1
-	print ("")
+			pass
+
+
+def oportunidad_actualizar():
+ 	interfaz(2)
+          
+# Comprobando si es posible revisar la actualizacion o no
+if conexion == "Yes":
+    # Importando variables
+    global a
+    # Identificando version del programa actual
+    documento = open("moduls.py", "r")
+    lineas = documento.readlines()[0]
+    version = lineas[2:-1]
+    version = str(version)
+ 
+	# Identificando version del programa en linea
+    comando = "wget https://raw.githubusercontent.com/Z2ppbWVuZXpkZXph/rotV/main/rotV.py"
+    subprocess.run(comando, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    documento1 = open("rotV.py.1", "r")
+    lineas1 = documento1.readlines()[0]
+    version1 = lineas1[2:-1]
+    os.system("rm rotV.py.1 &")
+
+	# Comparando versiones de diferentes documentos
+    if version != version1:
+    	oportunidad_actualizar()
+    else:
+    	a = "b2"
+else:
+    pass
+
+def cifrar(x):
+	if x == 1:
+		os.system("clear")
+		print (titulo_1)
+		print (Y+" Es momento de cifrar oraciones a continuación:\n")
+		try:
+			llave = int(input(BB+"Pon tu llave\n>>> "+WW))
+		except ValueError as e_V:
+			print (RR+"ERROR:"+WW+" Procura usar números a la proxima vez"+RR+"\nError intérprete:"+WW, e_V)
+			exit(1)
+		except KeyboardInterrupt as e_K:
+			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
+			exit(1)
+
+		try:
+			palabra = input(BB+"Pon el dato que quieras cifrar\n>>> "+WW)
+		except KeyboardInterrupt as e_K:
+			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
+			exit(1)
+
+		if palabra == "":
+			print (GG+"\nEl resultado es\n>>> ", end="" +WW+ "No ingresaste nada\n")
+			exit(1)
+
+		# Imprimiendo el resultado
+		print (GG+"\nEl resultado es\n>>> ", end="" +WW)
+		# Calculando oracion
+		moduls.cifrador_root(palabra, llave, 1)
+	
+		print ("")
+
+def descifrar(x):
+	if x == 1:
+		os.system("clear")
+		print (titulo_1)
+		print (Y+" Es momento de descifrar oraciones a continuación:\n")
+		try:
+			llave = int(input(BB+"Pon tu llave\n>>> "+WW))
+		except ValueError as e_V:
+			print (RR+"ERROR:"+WW+" Procura usar números a la proxima vez"+RR+"\nError intérprete:"+WW, e_V)
+			exit(1)
+		except KeyboardInterrupt as e_K:
+			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
+			exit(1)
+
+		try:
+			palabra = input(BB+"Pon el dato que quieras descifrar\n>>> "+WW)
+		except KeyboardInterrupt as e_K:
+			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
+			exit(1)
+
+		if palabra == "":
+			print (GG+"\nEl resultado es\n>>> ", end="" +WW+ "No ingresaste nada\n")
+			exit(1)
+
+		# Imprimiendo el resultado
+		print (GG+"\nEl resultado es\n>>> ", end="" +WW)
+		# Calculando oracion
+		moduls.cifrador_root(palabra, llave, 2)	
+		print ("")
 
 # Inicializacion
 os.system("clear")
 
-# Elementos escenciales
-abecedario = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
-especiales = " 'ñ!¡¿?<>[]¨*´+-.,:;~^`|°{}!$%&/()_@0123456789"
-
 # Titulo
-print (GG+"""              _ __     __
-    _ __ ___ | |\ \   / /
-   | '__/ _ \| __\ \ / /
-   | | | (_) | |_ \ V /
-   |_|  \___/ \__| \_/     Versión 2.0
-""")
-print (WW+"¡Bienvenido a mi nueva herramienta de rot y cifrados!")
-print (WW+"A diferencia de otras herramientas, esta", RR+ "identifica espacios y caracteres especiales!")
-
-print (YY+"Para comenzar, ¿Qué es lo que quieres hacer?")
-print (RR+"   1)"+WW+" Cifrar\n  "+RR+" 2) "+WW+"Descifrar\n  "+RR+" 3) "+WW+"Salir\n")
-
+interfaz(1)
 try:
 	funcion = int(input(BB+"Elige una opcion: "+WW))
 except ValueError as e_V:
@@ -110,12 +190,9 @@ except KeyboardInterrupt as e_K:
 	exit(1)
 
 if funcion == 1:
-	print (GG+"      ¡Es la hora de cifrar!")
-	funcion1(1)
+	cifrar(1)
 elif funcion == 2:
-	print (GG+"         ¡Es la hora de descifrar!")
-	funcion1(2)
+	descifrar(1)
 elif funcion == 3:
-	print (RR+"Saliendo del programa...")
 	exit(1)
 
