@@ -1,4 +1,4 @@
-# 2.6
+# 2.7
 # Importando modulos
 import os, moduls, subprocess, sys, time
 
@@ -164,7 +164,7 @@ def cifrar(x):
 			# Imprimiendo el resultado
 			print (GG+"\nEl resultado es\n>>> ", end="" +WW)
 			# Calculando oracion
-			moduls.cifrador_root(palabra, llave, 2)	
+			moduls.cifrador_root(palabra, llave, 1)	
 			print ("")
 			exit_1 = input(YY+"Presiona enter para volver a cifrar, presiona 1 y enter para descifrar "+WW)
 			if exit_1 == "1":
