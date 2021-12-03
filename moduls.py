@@ -1,4 +1,4 @@
-# 2.6
+# 2.7
 # Variables
 # Elementos escenciales
 abecedario = "abcdefghijklmnopqrstuvwxyz"
