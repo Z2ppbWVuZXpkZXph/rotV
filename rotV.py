@@ -1,4 +1,4 @@
-# 2.3
+# 2.5
 # Importando modulos
 import os, moduls, subprocess, sys, time
 
@@ -61,6 +61,22 @@ def interfaz(x):
 		print (WW+"A diferencia de otras herramientas, esta", RR+ "identifica espacios y caracteres especiales!")
 		print (YY+"Para comenzar, ¿Qué es lo que quieres hacer?")
 		print (RR+"   1)"+WW+" Cifrar\n  "+RR+" 2) "+WW+"Descifrar\n  "+RR+" 3) "+WW+"Salir\n")
+		try:
+			funcion = int(input(BB+"Elige una opcion: "+WW))
+		except ValueError as e_V:
+			print (RR+"ERROR:"+WW+" Procura usar números a la proxima vez"+RR+"\nError intérprete:"+WW, e_V)
+			exit(1)
+		except KeyboardInterrupt as e_K:
+			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
+			exit(1)
+		if funcion == 1:
+			cifrar(1)
+		elif funcion == 2:
+			descifrar(1)
+		elif funcion == 3:
+			exit(1)
+
+
 	elif x == 2:
 		os.system("clear")
 		print (titulo_1)
@@ -97,7 +113,7 @@ if conexion == "Yes":
     lineas = documento.readlines()[0]
     version = lineas[2:-1]
     version = str(version)
- 
+
 	# Identificando version del programa en linea
     comando = "wget https://raw.githubusercontent.com/Z2ppbWVuZXpkZXph/rotV/main/rotV.py"
     subprocess.run(comando, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
@@ -118,7 +134,8 @@ def cifrar(x):
 	if x == 1:
 		os.system("clear")
 		print (titulo_1)
-		print (Y+" Es momento de cifrar oraciones a continuación:\n")
+		print (Y+" Es momento de cifrar oraciones a continuación:")
+		print (RR+" Si quieres regresar al menú principal, llena todo de"+WW+" 00\n")
 		try:
 			llave = int(input(BB+"Pon tu llave\n>>> "+WW))
 		except ValueError as e_V:
@@ -127,29 +144,40 @@ def cifrar(x):
 		except KeyboardInterrupt as e_K:
 			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
 			exit(1)
-
-		try:
-			palabra = input(BB+"Pon el dato que quieras cifrar\n>>> "+WW)
-		except KeyboardInterrupt as e_K:
-			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
-			exit(1)
+		if llave == 00:
+			os.system("clear")
+			interfaz(1)
+		else:
+			try:
+				palabra = input(BB+"Pon el dato que quieras cifrar\n>>> "+WW)
+			except KeyboardInterrupt as e_K:
+				print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
+				exit(1)
 
 		if palabra == "":
 			print (GG+"\nEl resultado es\n>>> ", end="" +WW+ "No ingresaste nada\n")
 			exit(1)
-
-		# Imprimiendo el resultado
-		print (GG+"\nEl resultado es\n>>> ", end="" +WW)
-		# Calculando oracion
-		moduls.cifrador_root(palabra, llave, 1)
+		elif palabra == "00":
+				os.system("clear")
+				interfaz(1)
+		else:
+			# Imprimiendo el resultado
+			print (GG+"\nEl resultado es\n>>> ", end="" +WW)
+			# Calculando oracion
+			moduls.cifrador_root(palabra, llave, 2)	
+			print ("")
+			exit_1 = input(YY+"Presiona enter para volver a cifrar, presiona 1 y enter para descifrar "+WW)
+			if exit_1 == "1":
+				descifrar(1)
+			else:
+				cifrar(1)
 	
-		print ("")
-
 def descifrar(x):
 	if x == 1:
 		os.system("clear")
 		print (titulo_1)
-		print (Y+" Es momento de descifrar oraciones a continuación:\n")
+		print (Y+" Es momento de descifrar oraciones a continuación:")
+		print (RR+" Si quieres regresar al menú principal, llena todo de"+WW+" 00\n")
 		try:
 			llave = int(input(BB+"Pon tu llave\n>>> "+WW))
 		except ValueError as e_V:
@@ -159,40 +187,38 @@ def descifrar(x):
 			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
 			exit(1)
 
-		try:
-			palabra = input(BB+"Pon el dato que quieras descifrar\n>>> "+WW)
-		except KeyboardInterrupt as e_K:
-			print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
-			exit(1)
+		if llave == 00:
+			os.system("clear")
+			interfaz(1)
+		else:
+			try:
+				palabra = input(BB+"Pon el dato que quieras descifrar\n>>> "+WW)
+			except KeyboardInterrupt as e_K:
+				print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
+				exit(1)
 
-		if palabra == "":
-			print (GG+"\nEl resultado es\n>>> ", end="" +WW+ "No ingresaste nada\n")
-			exit(1)
-
-		# Imprimiendo el resultado
-		print (GG+"\nEl resultado es\n>>> ", end="" +WW)
-		# Calculando oracion
-		moduls.cifrador_root(palabra, llave, 2)	
-		print ("")
+			if palabra == "":
+				print (GG+"\nEl resultado es\n>>> ", end="" +WW+ "No ingresaste nada\n")
+				exit(1)
+			elif palabra == "00":
+				os.system("clear")
+				interfaz(1)
+			else:
+				# Imprimiendo el resultado
+				print (GG+"\nEl resultado es\n>>> ", end="" +WW)
+				# Calculando oracion
+				moduls.cifrador_root(palabra, llave, 2)	
+				print ("")
+				exit_1 = input(YY+"Presiona enter para volver a descifrar, presiona 1 y enter para cifrar "+WW)
+				if exit_1 == "1":
+					cifrar(1)
+				else:
+					descifrar(1)
 
 # Inicializacion
 os.system("clear")
 
 # Titulo
 interfaz(1)
-try:
-	funcion = int(input(BB+"Elige una opcion: "+WW))
-except ValueError as e_V:
-	print (RR+"ERROR:"+WW+" Procura usar números a la proxima vez"+RR+"\nError intérprete:"+WW, e_V)
-	exit(1)
-except KeyboardInterrupt as e_K:
-	print (RR+"\nSaliendo:"+WW+" Estas a punto de salir del programa"+RR+"\nIntérprete:"+WW, "KeyboardInterrupt")
-	exit(1)
 
-if funcion == 1:
-	cifrar(1)
-elif funcion == 2:
-	descifrar(1)
-elif funcion == 3:
-	exit(1)
 
